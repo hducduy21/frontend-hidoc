@@ -1,10 +1,11 @@
 import Header from '~/components/Header';
-import Content from '~/components/Content';
-function Layout() {
+
+
+function Layout({children}) {
     return ( 
-        <div>
+        <div >
             <Header/>
-            <Content/>
+            {children}
         </div>
         
      );

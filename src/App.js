@@ -1,13 +1,28 @@
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Layout from '~/components/Layout';
+import { routes } from '~/routes';
+import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
 
 function App() {
   return (
-    <div className="App">
-      <Layout/>
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          {
+            routes.map((route,ind)=>{
+              const Clayout = route.layout || Layout;
+              const Page = route.element
+              return <Route key={ind} path={route.path} element={
+                <Clayout>
+                  <Page/>
+                </Clayout>} />
+            })
+          }
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

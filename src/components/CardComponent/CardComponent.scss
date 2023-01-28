@@ -1,0 +1,28 @@
+.wrapper_card_1{
+    padding: 0 30px;
+    .wrapper_card{
+        .img{
+            height: 300px;
+        }
+        .title{
+    
+        }
+        .desc{
+            font-size: 15px;
+            @media (max-width: 900px) {
+                font-size: 15px;
+            }
+            @media (max-width: 500px) {
+                font-size: 14px;
+            }
+            
+        }
+    }
+}
+.wrapper_card_2{
+    .wrapper_card{
+        .img{
+            padding: 0 10px;
+        }
+    }
+}
