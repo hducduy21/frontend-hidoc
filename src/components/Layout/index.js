@@ -1,11 +1,13 @@
 import Header from '~/components/Header';
+import Footer from '~/components/Footer';
 
 
-function Layout({children}) {
+function Layout({flagFoot=true,children}) {
     return ( 
-        <div >
+        <div>
             <Header/>
-            {children}
+            <div>{children}</div>
+            {flagFoot?<Footer />:null}
         </div>
         
      );
