@@ -10,7 +10,6 @@ function Slick({type=1,list}) {
     const settings1 = {
         dots: true,
         infinite: true,
-        speed: 500,
         slidesToShow: 3,
         slidesToScroll: 3,
         autoplay: true,
@@ -45,7 +44,6 @@ function Slick({type=1,list}) {
       const settings2 = {
         dots: true,
         infinite: true,
-        speed: 500,
         slidesToShow: 4,
         slidesToScroll: 4,
         speed: 2000,

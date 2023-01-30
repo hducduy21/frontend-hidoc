@@ -14,7 +14,7 @@ function Hospital() {
     const [check,setCheck] = useState(['checked', 'unchecked','unchecked'])
     return ( 
         <div className={cx("container","HospitalContainer")}>
-            <img src={Images.bvtest}></img>
+            <img src={Images.bvtest} alt="Hospital"></img>
             <div className={cx("title")}>
                 <table>
                     <tr>
@@ -32,7 +32,7 @@ function Hospital() {
                 <table>
                     <tr>
                         <td  style={{width: "200px"}}><span className={cx(check[0])} style={{width: "100%"}} onClick={()=>{setCheck(['checked', 'unchecked','unchecked']); type=1}}>Giới thiệu >></span></td>
-                        <td rowSpan={10} style={{verticalAlign: "top"}}>{type==1?<span className='inf'>{inf}</span>:<img src={imgQT}/>}</td>
+                        <td rowSpan={10} style={{verticalAlign: "top"}}>{type===1?<span className='inf'>{inf}</span>:<img src={imgQT} alt="quy trình"/>}</td>
                     </tr>
                     <tr><td><span className={cx(check[1])} onClick={()=>{setCheck(['unchecked', 'checked','unchecked']); type=2}}>Quy trình khám >></span></td></tr>
                     <tr><td><span className={cx(check[2])} onClick={()=>{setCheck(['unchecked', 'unchecked','checked'])}}>Sơ đồ >></span></td></tr>

@@ -1,8 +1,5 @@
 import Carousel from 'react-bootstrap/Carousel';
 import Images from '~/assets/Images';
-import styles from './Slider.scss';
-import classNames from 'classnames';
-const cx = classNames.bind(styles);
 
 function Slider() {
   return (

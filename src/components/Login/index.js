@@ -34,7 +34,7 @@ function Login() {
                     </tr>
                     <tr>
                         <td><FontAwesomeIcon icon={faLock}/></td>
-                        <td><input type="text" placeholder="Mật khẩu" style={{width: "100%"}}  id="pass"/></td>
+                        <td><input type="password" placeholder="Mật khẩu" style={{width: "100%"}}  id="pass"/></td>
                     </tr>
                     
                     <tr>

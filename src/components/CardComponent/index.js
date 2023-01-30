@@ -13,7 +13,7 @@ function CardComponent({type,name="",img,desc=""}) {
                 <Card.Body className={cx("body")}>
                     <Card.Title className={cx("title")}>{name}</Card.Title>
                     <Card.Text className={cx("desc")}>{desc}</Card.Text>
-                    <Button variant="primary" className={cx("btn_dat")}>Đặt khám ngay</Button>
+                    <Button variant="success" className={cx("btn_dat")}>Đặt khám ngay</Button>
                 </Card.Body>
             </Card>
         </div>
