@@ -1,5 +1,7 @@
 const initstate = {
-    username: "none",
+    name: "",
+    username: "",
+    token: "",
 }
 const userReducer = (state = initstate, action) => {
     switch (action.type) {

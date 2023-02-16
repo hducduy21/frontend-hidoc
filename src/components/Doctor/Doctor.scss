@@ -75,7 +75,7 @@
         min-height: 500px;
         height: auto;
         .day{
-            border: 2px solid #525252;
+            border: 2px solid #575757;
             width: auto;
             max-width: 180px;
             text-align: left;
@@ -115,9 +115,8 @@
             }
             .noDensity{
                 background-color: #d1d8e0;
-                &:hover{
-                    border: 3px solid #4f4f4f;
-                }
+                border: 1px solid rgb(173, 173, 173);
+                color:#989898;
             }
         }
         @media (max-width:920px){
