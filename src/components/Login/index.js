@@ -5,13 +5,58 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock} from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Modal from 'react-modal';
+import { useState,CSSProperties } from "react";
+import { HashLoader } from "react-spinners";
 
 import axios from "axios";
 const cx = classNames.bind(styles);
 
+const override: CSSProperties = {
+    display: "block",
+    margin: "30px auto",
+    borderColor: "#009432",
+    borderWidth: "5px",
+};
+
+const customStyles = {
+    content: {
+        width: "150px",
+        height: "150px",
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        color: 'grba(0,0,0,0)',
+        backgroundColor: 'rgba(209, 209, 209,0.0)',
+        padding: 0,
+        marginTop: '10px',
+        border: 'none',
+    },
+    overlay: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(209, 209, 209,0.4)',
+    },
+};
+
 function validateLogin(email,pass){
     if(email.value.length===0){
-        toast.error("Vui lòng nhập email!")
+        toast.error("Vui lòng nhập email!",{
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            })
         return false;
     }
     else if(pass.value.length===0){
@@ -29,8 +74,19 @@ function validateLogin(email,pass){
 }
 
 
+Modal.setAppElement('#root');
 function Login() {
+
     const dispatch = useDispatch();
+    const [modalIsOpen, setIsOpen] = useState(false);
+
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
     return (
         <div className={cx("login_wrapper")}>
             
@@ -47,25 +103,52 @@ function Login() {
                     </tr>
                     
                     <tr>
-                        <td colSpan={2}><button type="button" onClick={()=>{window.location.href="/signup"}}>Đăng ký</button>
-                        <button type="button" onClick={()=>{
+                        <td colSpan={2}><button type="button" className={cx('btn_log')} onClick={()=>{window.location.href="/signup"}}>Đăng ký</button>
+                        <button type="button" className={cx('btn_log')} onClick={()=>{
                             let email = document.getElementById("email");
                             let pass = document.getElementById("pass");
                             if(validateLogin(email,pass)){
                                 let request = {email:email.value,password:pass.value}
+                                openModal()
                                 axios.post('https://localhost:7056/api/User',request).then((data)=>{
+                                    console.log(data)
                                     if(data.status===200){
-                                        // document.cookie = "hidocAccount = " + JSON.stringify(data.data.data)
-                                        dispatch({type: 'SET_USER', payload: data.data.data})
+                                        if(data.data.status){
+                                            dispatch({type: 'SET_USER', payload: data.data.data})
+                                            toast.success("Đăng nhập thành công")
+                                            setTimeout(()=>{
+                                                closeModal()
+                                                window.location.href = "/";
+                                            },3000)
+                                        }else{
+                                            closeModal()
+                                            toast.warn("Tên đăng nhập hoặc mật khẩu không đúng")
+                                        }
                                     }
-                                }).catch((e)=>{console.log(e)})
+                                    else{
+                                        closeModal()
+                                        toast.error("Không thể đăng nhập("+ data.status+")")
+                                    }
+                                }).catch((e)=>{closeModal();toast.error("Lỗi: Không thể đăng nhập, vui lòng thử lại")})
                             }
                         }} >Đăng nhập</button></td>
                         
                     </tr>
                 </table>
             </form>
+
+            <div><img src=''/></div>
             <ToastContainer />
+            <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} shouldCloseOnOverlayClick={false}>
+                <HashLoader
+                    color={"#009432"}
+                    loading={true}
+                    cssOverride={override}
+                    size={50}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+            </Modal>
         </div>
      );
 }

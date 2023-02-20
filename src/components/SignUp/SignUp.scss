@@ -1,4 +1,4 @@
-.login_wrapper{
+.signup_wrapper{
     background-color: #ffffff;
     width: 600px;
     margin-left: auto;
@@ -31,8 +31,9 @@
         height: 50px;
     }
     td{
-        input{
+        input,textarea{
             outline: none;
+            margin-left: 10px;
         }
     }
     .pd{
@@ -46,7 +47,7 @@
     .widthInput{
         width: 320px;
     }
-    button{
+    .btn_log{
         outline: none;
         border: none;
         background-color: #27ae60;

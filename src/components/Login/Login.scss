@@ -29,8 +29,9 @@
             height: 50px;
         }
         td{
-            input{
+            input,textarea{
                 outline: none;
+                margin-left: 10px;
             }
         }
         .pd{
@@ -44,17 +45,17 @@
         .widthInput{
             width: 320px;
         }
-        button{
-            outline: none;
-            border: none;
-            background-color: #27ae60;
-            border-radius: 3px;
-            color: #ffffff;
-            padding: 5px 15px;
-            transition: all 0.2 ease;
-            &:hover{
-                background-color: #218c74;
-            }
+        .btn_log{
+                outline: none;
+                border: none;
+                background-color: #27ae60;
+                border-radius: 3px;
+                color: #ffffff;
+                padding: 5px 15px;
+                transition: all 0.2 ease;
+                &:hover{
+                    background-color: #218c74;
+            }   
         }
         button + button{
             margin-left: 10px;

@@ -7,14 +7,19 @@ import Search from '~/components/Search';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+
 import styles from './Header.scss';
 import classNames from 'classnames/bind';
+
 const cx = classNames.bind(styles);
 
 function Header() {
+
   const user = useSelector((state) => state.User);
-  // let account =  
+  
+  
   return (
+    
     <Navbar expand="lg" className={cx('wrapper_header')} fixed="top">
       <Container className={cx('container')}>
         <Navbar.Brand href="/home" className={cx('brand')}><img src={Images.logo} alt="img" className={cx('logo')}></img></Navbar.Brand>
@@ -52,6 +57,7 @@ function Header() {
           </Nav>
         </Navbar.Collapse>
       </Container>
+      
     </Navbar>
   );
 }
