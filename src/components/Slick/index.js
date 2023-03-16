@@ -10,8 +10,8 @@ function Slick({type=1,list}) {
     const settings1 = {
         dots: true,
         infinite: true,
-        slidesToShow: 3,
-        slidesToScroll: 3,
+        slidesToShow: 4,
+        slidesToScroll: 1,
         autoplay: true,
         speed: 4000,
         responsive: [
@@ -19,7 +19,7 @@ function Slick({type=1,list}) {
             breakpoint: 1200,
             settings: {
               slidesToShow: 3,
-              slidesToScroll: 3,
+              slidesToScroll: 1,
               infinite: true,
               dots: true
             }
@@ -28,7 +28,7 @@ function Slick({type=1,list}) {
             breakpoint: 990,
             settings: {
               slidesToShow: 2,
-              slidesToScroll: 2,
+              slidesToScroll: 1,
               initialSlide: 2
             }
           },

@@ -4,21 +4,21 @@ import Images from '~/assets/Images';
 function Slider() {
   return (
     <Carousel>
-      <Carousel.Item interval={1000}>
+      <Carousel.Item interval={3000}>
         <img
           className="d-block w-100"
           src={Images.slider1}
           alt="First slide"
         />
       </Carousel.Item>
-      <Carousel.Item interval={500}>
+      <Carousel.Item interval={3000}>
         <img
           className="d-block w-100"
           src={Images.slider1}
           alt="Second slide"
         />
       </Carousel.Item>
-      <Carousel.Item>
+      <Carousel.Item interval={3000}>
         <img
           className="d-block w-100"
           src={Images.slider1}

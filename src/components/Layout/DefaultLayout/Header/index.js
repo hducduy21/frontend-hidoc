@@ -16,7 +16,8 @@ const cx = classNames.bind(styles);
 function Header() {
 
   const user = useSelector((state) => state.User);
-  
+  const department = useSelector((state) => state.Department);
+  const list = department.map((e,id)=><NavDropdown.Item href="#action/3.1" key={id}>{e.name}</NavDropdown.Item>)
   
   return (
     
@@ -34,12 +35,7 @@ function Header() {
             <Nav.Link href="#home">Bệnh viện/phòng khám</Nav.Link>
 
             <NavDropdown title="Chuyên khoa" id="dropdown-menu-align-end">
-              <NavDropdown.Item href="#action/3.1">Nội</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Ngoại</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Sản</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Nhi</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Tâm lý</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Ung bướu</NavDropdown.Item>
+              {list}
             </NavDropdown>
             <NavDropdown title="Khác" id="dropdown-menu-align-end">
               <NavDropdown.Item href="#action/3.1">Đăng ký đối tác</NavDropdown.Item>

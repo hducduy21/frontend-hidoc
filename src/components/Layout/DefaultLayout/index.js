@@ -1,8 +1,8 @@
-import Header from '~/components/Header';
-import Footer from '~/components/Footer';
+import Header from './Header';
+import Footer from './Footer';
 
 
-function Layout({flagFoot=true,children}) {
+function DefaultLayout({flagFoot=true,children}) {
     return ( 
         <div>
             <Header/>
@@ -13,4 +13,4 @@ function Layout({flagFoot=true,children}) {
      );
 }
 
-export default Layout;
+export default DefaultLayout;

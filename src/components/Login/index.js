@@ -110,16 +110,13 @@ function Login() {
                             if(validateLogin(email,pass)){
                                 let request = {email:email.value,password:pass.value}
                                 openModal()
-                                axios.post('https://localhost:7056/api/User',request).then((data)=>{
+                                axios.post('https://localhost:7056/api/User/login',request).then((data)=>{
                                     console.log(data)
                                     if(data.status===200){
                                         if(data.data.status){
                                             dispatch({type: 'SET_USER', payload: data.data.data})
-                                            toast.success("Đăng nhập thành công")
-                                            setTimeout(()=>{
-                                                closeModal()
-                                                window.location.href = "/";
-                                            },3000)
+                                            toast.success("Đăng nhập thành công");
+                                            window.location.href = "/home"
                                         }else{
                                             closeModal()
                                             toast.warn("Tên đăng nhập hoặc mật khẩu không đúng")

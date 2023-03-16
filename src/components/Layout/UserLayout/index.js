@@ -1,7 +1,7 @@
 import styles from "./UserLayout.scss";
 import classNames from 'classnames';
-import Layout from "~/components/Layout";
-import Footer from "~/components/Footer";
+import Layout from "~/components/Layout/DefaultLayout";
+import Footer from "~/components/Layout/DefaultLayout/Footer";
 
 const cx = classNames.bind(styles);
 function UserLayout({children}) {
