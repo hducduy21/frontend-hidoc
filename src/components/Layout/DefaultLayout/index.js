@@ -9,7 +9,6 @@ function DefaultLayout({flagFoot=true,children}) {
             <div>{children}</div>
             {flagFoot?<Footer />:null}
         </div>
-        
      );
 }
 
