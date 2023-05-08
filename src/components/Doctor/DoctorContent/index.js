@@ -38,12 +38,12 @@ function DoctorContent() {
                                 </div>
                             </Col>
                             <Col xl={3} className="Doctor_box">
-                                <div className={cx('box_function', 'box_function--red')}>
+                                <div className={cx('box_function', 'box_function--green')}>
                                     <FontAwesomeIcon
                                         className={cx('doctor_function_box_icon')}
                                         icon={faSuitcaseMedical}
                                     />
-                                    <div>Khám ngay</div>
+                                    <div>Đăng ký lịch khám</div>
                                 </div>
                             </Col>
                             <Col xl={3} className="Doctor_box">

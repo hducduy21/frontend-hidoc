@@ -27,6 +27,7 @@ function Header() {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav>
                         <Nav.Link href="#home">Hoàng Đức Duy</Nav.Link>
+                        <Nav.Link href="/">Trang chủ</Nav.Link>
                         <Nav.Link href="#home">Đăng xuất</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>

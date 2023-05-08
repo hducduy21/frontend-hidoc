@@ -1,85 +1,51 @@
-.HospitalContainer{
-    &>img{
+.HospitalContainer {
+    & > img {
         object-fit: cover;
         height: 200px;
         width: 100%;
     }
-    .title{
-            margin-top: 20px;
-        table{
+    .title {
+        margin-top: 20px;
+        table {
             width: 100%;
             text-align: left;
-            .icon{
+            .icon {
                 font-size: 100px;
                 line-height: 100px;
             }
-            .name{
+            .name {
                 line-height: 28px;
-                font-size: 28px; 
+                font-size: 28px;
                 font-weight: 500;
                 margin-left: 20px;
                 vertical-align: top;
-                
             }
-            .address{
+            .address {
                 margin-left: 20px;
-    
-                .addressIcon{
+
+                .addressIcon {
                     margin-right: 10px;
                 }
             }
-            
         }
-        
     }
-    &>.content{
-        margin: 40px 0 20px 0 ;
+    & > .content {
+        margin: 40px 0 20px 0;
 
-        table{
-            width: 100%;
-            text-align: left;
-            font-weight: 500;
-            tr{
-                height: 50px;
-                td{
-                    cursor: pointer;
-                    &:hover{
-                        color: brown;
-                    }
-                    &>span{
-                        background-color: beige;
-                        padding: 5px 10px;
-                        border-radius: 10px;
-                        border: 1px solid rgba(0,0,0,0.15)
-                    }
-                    img{
-                        width: 100%;
-                    }
-                }
-                .inf{
-                    display: block;
-                    background-color: white;
-                    color: black;
-                    font-weight: 400;
-                    border: none;
-                    text-align: left;
-                    font-size: 14px;
-                    position: absolute;        
-   
-                    &:hover{
-                        background-color: white;
-                        border: none;
-                        text-align: left;
-                        font-size: 14px;
-                    }
-                }
-                
+        .content_content_row {
+            text-align: justify;
+            line-height: 30px;
+            margin-top: 10px;
+            span {
+                margin-left: 15px;
             }
-            .checked{
-                background-color: burlywood;
-                color: white;
+            small {
+                margin-left: 20px;
             }
         }
-
+        .content_content_1 {
+            text-align: left;
+            display: block;
+        }
     }
 }

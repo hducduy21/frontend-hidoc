@@ -6,5 +6,6 @@ const Images = {
     quytrinh: require('~/assets/Images/quytrinhtest.png'),
     doctorslider1: require('~/assets/Images/doctorslider.jpg'),
     doctorslider2: require('~/assets/Images/doctorslider2.jpg'),
+    sodotam: require('~/assets/Images/sodotemp.png'),
 };
 export default Images;

@@ -4,6 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import CardComponent from '~/components/User/CardComponent';
 import Images from '~/assets/Images';
+import { useSelector } from 'react-redux';
 
 function Slick({ type = 1, list }) {
     const settings1 = {
@@ -81,16 +82,21 @@ function Slick({ type = 1, list }) {
                 {type === 1 ? 'Bác sĩ nổi bật' : 'Bệnh viện/phòng khám nổi bật'}{' '}
             </h2>
             <Slider {...setting}>
-                {list.map((e, id) => (
-                    <div className="slickComponent" key={id}>
-                        <CardComponent
-                            type={type}
-                            name={e.name}
-                            desc={e.desc || ''}
-                            img={type === 1 ? Images.bstest : Images.bvtest}
-                        />
-                    </div>
-                ))}
+                {list.map((e, id) => {
+                    return (
+                        <div className="slickComponent" key={id}>
+                            <CardComponent
+                                type={type}
+                                name={e.name}
+                                descript={e.descript || ''}
+                                level={e.level || ''}
+                                img={e.link || e.img || ''}
+                                id={e.username || e.Username || ''}
+                                hid={e.hid || ''}
+                            />
+                        </div>
+                    );
+                })}
             </Slider>
         </div>
     );

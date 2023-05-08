@@ -3,8 +3,12 @@ import styles from './Doctor.scss';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faHospital } from '@fortawesome/free-solid-svg-icons';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
+const hocvi = { 1: 'Bác sỹ ', 2: 'Thạc sỹ ', 3: 'Tiến sỹ ', 4: 'Giáo sư ' };
 let currentDate = new Date(new Date().getTime());
 let day = [
     new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
@@ -184,25 +188,29 @@ function colorDensity(a, b) {
     return 'whiteDensity';
 }
 function Doctor() {
+    let [doctor, setDoctor] = useState({});
+    const { id } = useParams();
+    useEffect(() => {
+        axios.get('https://localhost:7056/api/doctor/' + id).then((data) => {
+            console.log(data.data);
+            setDoctor(data.data);
+        });
+    }, []);
     return (
         <div className={cx('doctorContainer')}>
             <div className="left">
-                <img src={Images.bstest} />
-                <span className="title">Bác sĩ cao cấp Nguyễn Duy Hưng</span>
+                <img src={'https://localhost:7056/static/' + doctor.link} />
+                <span className="title">{hocvi[doctor.level] + doctor.name}</span>
                 <div className={cx('hospital')}>
                     <FontAwesomeIcon icon={faHospital} />
                     <span className={cx('hospital_name')}>Bệnh viện chợ rẫy</span>
                 </div>
                 <div className={cx('location')}>
                     <FontAwesomeIcon icon={faLocationDot} />
-                    <span className={cx('location_name')}>19 Nguyễn Hữu Thọ, phường Tân Phong, Quận 7, TP HCM</span>
+                    <span className={cx('location_name')}>{doctor.hAddress}</span>
                 </div>
 
-                <span className="desc">
-                    {
-                        'Nguyên Trưởng phòng chỉ đạo tuyến tại Bệnh viện Da liễu Trung ương. \nBác sĩ từng công tác tại Bệnh viện Da liễu Trung ương. Nguyên Tổng Thư ký Hiệp hội Da liễu Việt Nam'
-                    }
-                </span>
+                <span className="desc">{doctor.descript}</span>
             </div>
             <div className="right">
                 <div>

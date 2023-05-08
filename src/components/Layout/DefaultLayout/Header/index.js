@@ -4,24 +4,48 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Images from '~/assets/Images';
 import Search from '~/components/User/Search';
-import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import Cookies from 'js-cookie';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import styles from './Header.scss';
 import classNames from 'classnames/bind';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
 function Header() {
-    const user = useSelector((state) => state.User);
-    const department = useSelector((state) => state.Department);
-    const list = department.map((e, id) => (
-        <NavDropdown.Item href="#action/3.1" key={id}>
-            {e.name}
-        </NavDropdown.Item>
-    ));
+    let [list, setList] = useState([]);
+    let [Account, setAccount] = useState({ name: '', email: '', id: '' });
+    useEffect(() => {
+        let t = Cookies.get('hidocaccesstoken');
+        if (t) {
+            axios
+                .get('https://localhost:7056/api/auth/login', {
+                    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t },
+                })
+                .then((data) => {
+                    if (data.status == 200) {
+                        console.log(data.data.data);
+                        setAccount({ name: data.data.data.name, email: data.data.data.email, id: data.data.data.id });
 
+                        console.log(data.data.data.name);
+                    } else {
+                        setAccount({ name: '', email: '', id: '' });
+                    }
+                })
+                .catch((err) => {
+                    setAccount({ name: '', email: '', id: '' });
+                });
+        }
+    }, []);
+    useEffect(() => {
+        axios.get('https://localhost:7056/api/Department').then((data) => {
+            setList(data.data);
+        });
+    }, []);
     return (
         <Navbar expand="lg" className={cx('wrapper_header')} fixed="top">
             <Container className={cx('container')}>
@@ -38,7 +62,15 @@ function Header() {
                         <Nav.Link href="#home">Bệnh viện/phòng khám</Nav.Link>
 
                         <NavDropdown title="Chuyên khoa" id="dropdown-menu-align-end">
-                            {list}
+                            {list &&
+                                list.map((e, id) => {
+                                    console.log(e.name);
+                                    return (
+                                        <NavDropdown.Item href="#action/3.1" key={id}>
+                                            {e.name}
+                                        </NavDropdown.Item>
+                                    );
+                                })}
                         </NavDropdown>
                         <NavDropdown title="Khác" id="dropdown-menu-align-end">
                             <NavDropdown.Item href="#action/3.1">Đăng ký đối tác</NavDropdown.Item>
@@ -48,11 +80,13 @@ function Header() {
                     </Nav>
 
                     <Nav>
-                        <Nav.Link href="/login" className={cx('login')}>
+                        <Nav.Link href={Account.id === '' ? '/login' : '/profile'} className={cx('login')}>
                             <span>
-                                {user.name === '' ? 'Đăng nhập' : user.name.split(' ')[user.name.split(' ').length - 1]}
+                                {Account.name === ''
+                                    ? 'Đăng nhập'
+                                    : Account.name.split(' ')[Account.name.split(' ').length - 1]}
                             </span>
-                            {user.name === '' ? '' : <FontAwesomeIcon icon={faUser} style={{ marginLeft: '8px' }} />}
+                            {Account.id === '' ? '' : <FontAwesomeIcon icon={faUser} style={{ marginLeft: '8px' }} />}
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
