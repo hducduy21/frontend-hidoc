@@ -6,7 +6,6 @@ const cx = classNames.bind(styles);
 const hocvi = { 1: 'Bác sỹ ', 2: 'Thạc sỹ ', 3: 'Tiến sỹ ', 4: 'Giáo sư ' };
 
 function CardComponent({ type, name = '', img, descript = '', level = 1, id, hid = '' }) {
-    console.log(descript);
     if (type === 1)
         return (
             <div className={cx('wrapper_card_1')}>

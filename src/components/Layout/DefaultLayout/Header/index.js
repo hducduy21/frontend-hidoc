@@ -28,10 +28,7 @@ function Header() {
                 })
                 .then((data) => {
                     if (data.status == 200) {
-                        console.log(data.data.data);
                         setAccount({ name: data.data.data.name, email: data.data.data.email, id: data.data.data.id });
-
-                        console.log(data.data.data.name);
                     } else {
                         setAccount({ name: '', email: '', id: '' });
                     }

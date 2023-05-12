@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faHospital } from '@fortawesome/free-solid-svg-icons';
 import { Row, Col } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import {
     AppstoreOutlined,
     ContainerOutlined,
@@ -33,6 +35,8 @@ function getItem(label, key, icon, children) {
     };
 }
 function Hospital() {
+    const { id } = useParams();
+    const [hospital, setHospital] = useState({});
     const [collapsed, setCollapsed] = useState(false);
     const toggleCollapsed = () => {
         setCollapsed(!collapsed);
@@ -46,9 +50,18 @@ function Hospital() {
             setContentState(2);
         }
     };
+    useEffect(() => {
+        axios.get('https://localhost:7056/api/hospitals/' + id).then((data) => {
+            console.log(data.data.data);
+            setHospital(data.data.data);
+        });
+    }, []);
     return (
         <div className={cx('container', 'HospitalContainer')}>
-            <img src={Images.bvtest} alt="Hospital"></img>
+            <img
+                src={hospital.img ? 'https://localhost:7056/static/' + hospital.img : Images.bvtest}
+                alt="Hospital"
+            ></img>
             <div className={cx('title')}>
                 <table>
                     <tr>
@@ -56,7 +69,7 @@ function Hospital() {
                             <FontAwesomeIcon icon={faHospital} className={cx('icon')} />
                         </td>
                         <td>
-                            <span className={cx('name')}>Bệnh viện chợ rẫy</span>
+                            <span className={cx('name')}>{hospital && hospital.name}</span>
                         </td>
                         <td></td>
                     </tr>
@@ -64,7 +77,7 @@ function Hospital() {
                         <td>
                             <span className={cx('address')}>
                                 <FontAwesomeIcon icon={faLocationDot} className={cx('addressIcon')} />
-                                19 Nguyễn Hữu Thọ, Phường Tân Phong, Quận 7, TP HCM
+                                {hospital && hospital.address}
                             </span>
                         </td>
                         <td style={{ width: '200px' }}>
@@ -95,18 +108,13 @@ function Hospital() {
                     style={{ display: contentState == 1 ? 'block' : 'none' }}
                 >
                     <div className={cx('content_content_row')}>
-                        Giới thiệu:{' '}
-                        <span>
-                            {
-                                'Bệnh viện Chợ Rẫy với lịch sử thành lập trên 100 năm, là bệnh viện hạng đặc biệt tuyến Trung ương lớn nhất cả nước với trên 1.800 giường và trên 3.000 kỹ thuật y tế được thực hiện. Hàng ngày Bệnh viện Chợ Rẫy tiếp nhận trung bình 6,000 -  8,000 bệnh nhân đến khám.\n Bệnh viện Chợ Rẫy là bệnh viện đa khoa hoàn chỉnh, xếp hạng đặc biệt, tuyến kỹ thuật sau cùng các tỉnh thành phía Nam, trực thuộc Bộ Y tế. Thế mạnh nổi bật tại Bệnh viện Chợ Rẫy là sự kết hợp giữa các chuyên khoa mang lại hiệu quả tốt nhất trong việc chẩn đoán và điều trị cho người bệnh.'
-                            }
-                        </span>
+                        Giới thiệu: <span>{hospital && hospital.description}</span>
                     </div>
                     <div className={cx('content_content_row')}>
-                        Giờ làm việc: <span>5:00-12:00, 13:30-18:00</span>
+                        Giờ làm việc: <span>{hospital && hospital.timework}</span>
                     </div>
                     <div className={cx('content_content_row')}>
-                        Giá trung bình: <span>500.000đ</span>
+                        Giá trung bình: <span>{hospital.xPrice ? hospital.xPrice.toLocaleString('en-US') : ''}đ</span>
                         <small>
                             {
                                 '(Lưu ý: giá này chỉ dựa trên giá khám tổng quát trung bình  cơ bản, tùy thuộc vào từng loại bệnh khác mà chi phí khác nhau)'

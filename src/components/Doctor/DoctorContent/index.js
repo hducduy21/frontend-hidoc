@@ -5,7 +5,7 @@ import styles from './DoctorContent.scss';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSuitcaseMedical, faCalendarDay, faNewspaper } from '@fortawesome/free-solid-svg-icons';
-
+import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 function DoctorContent() {
@@ -17,70 +17,37 @@ function DoctorContent() {
                     <Col xl={8} className={cx('Doctor_row1')}>
                         <Row>
                             <Col xl={3} className="Doctor_box">
-                                <div className={cx('box_function', 'box_function--red')}>
+                                <Link to={'/d/exam'} className={cx('box_function', 'box_function--red')}>
                                     <FontAwesomeIcon
                                         className={cx('doctor_function_box_icon')}
                                         icon={faSuitcaseMedical}
                                     />
                                     <div>Khám ngay</div>
-                                </div>
+                                </Link>
                             </Col>
                             <Col xl={3} className="Doctor_box">
-                                <div className={cx('box_function', 'box_function--green')}>
+                                <Link to={'/d/schedule'} className={cx('box_function', 'box_function--green')}>
                                     <FontAwesomeIcon className={cx('doctor_function_box_icon')} icon={faCalendarDay} />
                                     <div>Lịch khám</div>
-                                </div>
+                                </Link>
                             </Col>
                             <Col xl={3} className="Doctor_box">
-                                <div className={cx('box_function', 'box_function--red')}>
+                                <Link className={cx('box_function', 'box_function--red')}>
                                     <FontAwesomeIcon className={cx('doctor_function_box_icon')} icon={faNewspaper} />
                                     <div>Tạo tin tức</div>
-                                </div>
+                                </Link>
                             </Col>
                             <Col xl={3} className="Doctor_box">
-                                <div className={cx('box_function', 'box_function--green')}>
+                                <Link
+                                    to={'/d/schedule?modal=true'}
+                                    className={cx('box_function', 'box_function--green')}
+                                >
                                     <FontAwesomeIcon
                                         className={cx('doctor_function_box_icon')}
                                         icon={faSuitcaseMedical}
                                     />
                                     <div>Đăng ký lịch khám</div>
-                                </div>
-                            </Col>
-                            <Col xl={3} className="Doctor_box">
-                                <div className={cx('box_function', 'box_function--red')}>
-                                    <FontAwesomeIcon
-                                        className={cx('doctor_function_box_icon')}
-                                        icon={faSuitcaseMedical}
-                                    />
-                                    <div>Khám ngay</div>
-                                </div>
-                            </Col>
-                            <Col xl={3} className="Doctor_box">
-                                <div className={cx('box_function', 'box_function--red')}>
-                                    <FontAwesomeIcon
-                                        className={cx('doctor_function_box_icon')}
-                                        icon={faSuitcaseMedical}
-                                    />
-                                    <div>Khám ngay</div>
-                                </div>
-                            </Col>
-                            <Col xl={3} className="Doctor_box">
-                                <div className={cx('box_function', 'box_function--red')}>
-                                    <FontAwesomeIcon
-                                        className={cx('doctor_function_box_icon')}
-                                        icon={faSuitcaseMedical}
-                                    />
-                                    <div>Khám ngay</div>
-                                </div>
-                            </Col>
-                            <Col xl={3} className="Doctor_box">
-                                <div className={cx('box_function', 'box_function--red')}>
-                                    <FontAwesomeIcon
-                                        className={cx('doctor_function_box_icon')}
-                                        icon={faSuitcaseMedical}
-                                    />
-                                    <div>Khám ngay</div>
-                                </div>
+                                </Link>
                             </Col>
                         </Row>
                     </Col>

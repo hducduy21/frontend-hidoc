@@ -6,180 +6,13 @@ import { faLocationDot, faHospital } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { Modal } from 'antd';
+import Cookies from 'js-cookie';
+import { toast, ToastContainer } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 const hocvi = { 1: 'Bác sỹ ', 2: 'Thạc sỹ ', 3: 'Tiến sỹ ', 4: 'Giáo sư ' };
-let currentDate = new Date(new Date().getTime());
-let day = [
-    new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
-    new Date(new Date().getTime() + 24 * 60 * 60 * 1000 * 2),
-    new Date(new Date().getTime() + 24 * 60 * 60 * 1000 * 3),
-    new Date(new Date().getTime() + 24 * 60 * 60 * 1000 * 4),
-    new Date(new Date().getTime() + 24 * 60 * 60 * 1000 * 5),
-    new Date(new Date().getTime() + 24 * 60 * 60 * 1000 * 6),
-    new Date(new Date().getTime() + 24 * 60 * 60 * 1000) * 7,
-];
-let dayOfWeek = ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy'];
-const today = currentDate.getDay();
 
-const data = [
-    [
-        {
-            id: 1,
-            time: '7:00-9:00',
-            number: 20,
-            registered: 8,
-        },
-        {
-            id: 2,
-            time: '9:30-11:00',
-            number: 30,
-            registered: 16,
-        },
-        {
-            id: 3,
-            time: '13:00-15:00',
-            number: 20,
-            registered: 19,
-        },
-        {
-            id: 4,
-            time: '15:30-17:00',
-            number: 15,
-            registered: 15,
-        },
-    ],
-    [
-        {
-            id: 5,
-            time: '7:00-9:00',
-            number: 20,
-            registered: 8,
-        },
-        {
-            id: 6,
-            time: '9:30-11:00',
-            number: 30,
-            registered: 16,
-        },
-        {
-            id: 7,
-            time: '13:00-15:00',
-            number: 20,
-            registered: 19,
-        },
-        {
-            id: 8,
-            time: '15:30-17:00',
-            number: 15,
-            registered: 15,
-        },
-    ],
-    [
-        {
-            id: 9,
-            time: '7:00-9:00',
-            number: 20,
-            registered: 8,
-        },
-        {
-            id: 10,
-            time: '9:30-11:00',
-            number: 30,
-            registered: 16,
-        },
-        {
-            id: 11,
-            time: '13:00-15:00',
-            number: 20,
-            registered: 19,
-        },
-        {
-            id: 12,
-            time: '15:30-17:00',
-            number: 15,
-            registered: 15,
-        },
-    ],
-    [
-        {
-            id: 13,
-            time: '7:00-9:00',
-            number: 20,
-            registered: 8,
-        },
-        {
-            id: 14,
-            time: '9:30-11:00',
-            number: 30,
-            registered: 16,
-        },
-        {
-            id: 15,
-            time: '13:00-15:00',
-            number: 20,
-            registered: 19,
-        },
-        {
-            id: 16,
-            time: '15:30-17:00',
-            number: 15,
-            registered: 15,
-        },
-    ],
-    [
-        {
-            id: 17,
-            time: '7:00-9:00',
-            number: 20,
-            registered: 8,
-        },
-        {
-            id: 18,
-            time: '9:30-11:00',
-            number: 30,
-            registered: 16,
-        },
-        {
-            id: 19,
-            time: '13:00-15:00',
-            number: 20,
-            registered: 19,
-        },
-        {
-            id: 20,
-            time: '15:30-17:00',
-            number: 15,
-            registered: 15,
-        },
-    ],
-    [
-        {
-            id: 21,
-            time: '7:00-9:00',
-            number: 20,
-            registered: 8,
-        },
-        {
-            id: 22,
-            time: '9:30-11:00',
-            number: 30,
-            registered: 16,
-        },
-        {
-            id: 23,
-            time: '13:00-15:00',
-            number: 20,
-            registered: 19,
-        },
-        {
-            id: 24,
-            time: '15:30-17:00',
-            number: 15,
-            registered: 15,
-        },
-    ],
-];
 function colorDensity(a, b) {
     if (a === b) return 'noDensity';
     if (a / b >= 0.8) return 'redDensity';
@@ -188,16 +21,88 @@ function colorDensity(a, b) {
     return 'whiteDensity';
 }
 function Doctor() {
+    const [data, setData] = useState([]);
+    const [itemTarger, setItemTarger] = useState([]);
     let [doctor, setDoctor] = useState({});
     const { id } = useParams();
+    var today = new Date();
+    var tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    var year2 = tomorrow.getFullYear();
+    var month2 = ('0' + (tomorrow.getMonth() + 1)).slice(-2);
+    var day2 = ('0' + tomorrow.getDate()).slice(-2);
+    var tomorrowString = year2 + '-' + month2 + '-' + day2;
+
+    const token = Cookies.get('hidocaccesstoken');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     useEffect(() => {
         axios.get('https://localhost:7056/api/doctor/' + id).then((data) => {
             console.log(data.data);
             setDoctor(data.data);
         });
     }, []);
+    useEffect(() => {
+        axios.get('https://localhost:7056/api/doctor/schedule?date=' + tomorrowString).then((data) => {
+            setData(data.data);
+        });
+    }, []);
+
+    const showModal = async (item) => {
+        const date = new Date(item.sDate);
+        const year = date.getFullYear();
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const day = ('0' + date.getDate()).slice(-2);
+        const dateString = `${year}-${month}-${day}`;
+        setItemTarger({ ...item, sDate: dateString });
+        setIsModalOpen(true);
+        // window.location.href = '/login';
+    };
+    const handleOk = async () => {
+        try {
+            await axios
+                .get('https://localhost:7056/api/auth/login', {
+                    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+                })
+                .then((data) => {
+                    if (data.status == 200) {
+                        console.log(data.data);
+                        return true;
+                    } else {
+                        window.location.href = '/login';
+                    }
+                });
+        } catch (err) {
+            console.log(err);
+            window.location.href = '/login';
+        }
+        try {
+            await axios
+                .post(
+                    'https://localhost:7056/api/Schedule/sign',
+                    { Id: itemTarger.id },
+                    {
+                        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+                    },
+                )
+                .then((data) => {
+                    if (data.data.status) {
+                        toast.success(data.data.message);
+                    } else {
+                        toast.warning(data.data.message);
+                    }
+                });
+        } catch (err) {
+            toast.error('Không thể đăng ký lịch');
+        }
+        setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
     return (
         <div className={cx('doctorContainer')}>
+            <ToastContainer></ToastContainer>
             <div className="left">
                 <img src={'https://localhost:7056/static/' + doctor.link} />
                 <span className="title">{hocvi[doctor.level] + doctor.name}</span>
@@ -213,121 +118,70 @@ function Doctor() {
                 <span className="desc">{doctor.descript}</span>
             </div>
             <div className="right">
-                <div>
-                    <div className={cx('day')}>
-                        {dayOfWeek[day[0].getDay()] +
-                            ' (' +
-                            day[0].getDate() +
-                            '/' +
-                            (day[0].getMonth() + 1) +
-                            '/' +
-                            day[0].getFullYear() +
-                            ')'}
-                    </div>
-                    <div className={cx('listSign')}>
-                        {data[0].map((item, index) => (
-                            <div key={index} className={colorDensity(item.registered, item.number)}>
-                                {item.time + ' ' + item.registered + '/' + item.number}
+                {data.map((item, id) => {
+                    return (
+                        <div key={id}>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td className={cx('day')} style={{ fontSize: 14 }}>
+                                            {item.day}
+                                        </td>
+                                        <td className={cx('day')} style={{ fontSize: 14 }}>
+                                            {item.date}
+                                        </td>
+                                    </tr>
+                                </table>
+                                {/* {item.day} ({item.date}) */}
                             </div>
-                        ))}
-                    </div>
-                </div>
-                <div>
-                    <div className={cx('day')}>
-                        {dayOfWeek[day[1].getDay()] +
-                            ' (' +
-                            day[1].getDate() +
-                            '/' +
-                            (day[1].getMonth() + 1) +
-                            '/' +
-                            day[1].getFullYear() +
-                            ')'}
-                    </div>
-                    <div className={cx('listSign')}>
-                        {data[1].map((item, index) => (
-                            <div key={index} className={colorDensity(item.registered, item.number)}>
-                                {item.time + ' ' + item.registered + '/' + item.number}
+                            <div className={cx('listSign')}>
+                                {item.schedules.map((item, index) => (
+                                    <div
+                                        key={index}
+                                        className={colorDensity(item.registered, item.maxNumber)}
+                                        onClick={() => {
+                                            showModal(item);
+                                        }}
+                                    >
+                                        {item.timeS.slice(0, -3) +
+                                            ' - ' +
+                                            item.timeE.slice(0, -3) +
+                                            '  ' +
+                                            item.registered +
+                                            '/' +
+                                            item.maxNumber}
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
-                </div>
-                <div>
-                    <div className={cx('day')}>
-                        {dayOfWeek[day[2].getDay()] +
-                            ' (' +
-                            day[2].getDate() +
-                            '/' +
-                            (day[2].getMonth() + 1) +
-                            '/' +
-                            day[2].getFullYear() +
-                            ')'}
-                    </div>
-                    <div className={cx('listSign')}>
-                        {data[2].map((item, index) => (
-                            <div key={index} className={colorDensity(item.registered, item.number)}>
-                                {item.time + ' ' + item.registered + '/' + item.number}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-                <div>
-                    <div className={cx('day')}>
-                        {dayOfWeek[day[3].getDay()] +
-                            ' (' +
-                            day[3].getDate() +
-                            '/' +
-                            (day[3].getMonth() + 1) +
-                            '/' +
-                            day[3].getFullYear() +
-                            ')'}
-                    </div>
-                    <div className={cx('listSign')}>
-                        {data[3].map((item, index) => (
-                            <div key={index} className={colorDensity(item.registered, item.number)}>
-                                {item.time + ' ' + item.registered + '/' + item.number}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-                <div>
-                    <div className={cx('day')}>
-                        {dayOfWeek[day[4].getDay()] +
-                            ' (' +
-                            day[4].getDate() +
-                            '/' +
-                            (day[4].getMonth() + 1) +
-                            '/' +
-                            day[4].getFullYear() +
-                            ')'}
-                    </div>
-                    <div className={cx('listSign')}>
-                        {data[4].map((item, index) => (
-                            <div key={index} className={colorDensity(item.registered, item.number)}>
-                                {item.time + ' ' + item.registered + '/' + item.number}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-                <div>
-                    <div className={cx('day')}>
-                        {dayOfWeek[day[5].getDay()] +
-                            ' (' +
-                            day[5].getDate() +
-                            '/' +
-                            (day[5].getMonth() + 1) +
-                            '/' +
-                            day[5].getFullYear() +
-                            ')'}
-                    </div>
-                    <div className={cx('listSign')}>
-                        {data[5].map((item, index) => (
-                            <div key={index} className={colorDensity(item.registered, item.number)}>
-                                {item.time + ' ' + item.registered + '/' + item.number}
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                        </div>
+                    );
+                })}
             </div>
+            <Modal
+                title="Bạn có chắc chắn muốn đăng ký lịch khám?"
+                open={isModalOpen}
+                onOk={handleOk}
+                okText={'Đăng ký lịch khám'}
+                cancelText={'Hủy'}
+                onCancel={handleCancel}
+                className="modal_schedule"
+                width={350}
+            >
+                <h6>Chi tiết lịch khám</h6>
+                <div>
+                    Bác sĩ chỉ định: <span>{hocvi[doctor.level] + doctor.name}</span>
+                </div>
+                <div style={{ marginTop: 5 }}>
+                    Địa chỉ: <span>{doctor.hAddress}</span>
+                </div>
+                <div style={{ marginTop: 5 }}>
+                    Ngày khám: <span id="item_sign_date">{itemTarger && itemTarger.sDate}</span>
+                </div>
+                <div style={{ marginTop: 5 }}>
+                    Thời gian khám:{' '}
+                    <span id="item_sign_time">{itemTarger && itemTarger.timeS + ' - ' + itemTarger.timeE}</span>
+                </div>
+            </Modal>
         </div>
     );
 }

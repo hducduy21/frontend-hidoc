@@ -18,7 +18,7 @@ function App() {
                                 key={ind}
                                 path={route.path}
                                 element={
-                                    <Clayout>
+                                    <Clayout page={route.page || ''}>
                                         <Page />
                                     </Clayout>
                                 }

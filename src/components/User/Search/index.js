@@ -1,9 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-
+import { useState } from 'react';
 import styles from './search.scss';
 import classNames from 'classnames';
-
 const cx = classNames.bind(styles);
 
 function Search() {
