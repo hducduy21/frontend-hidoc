@@ -133,21 +133,27 @@ function SearchResult() {
                 <div className={cx('search_result')}>
                     <CardComponent
                         type={1}
-                        name={'Trần Hữu Đại'}
-                        descript={'123'}
-                        level={1}
+                        name={'Phạm Mai Hoa'}
+                        descript={
+                            'Chuyên gia trên 35 năm kinh nghiệm trong lĩnh vực bệnh lý Tiêu hóa, Chuyên gia đầu ngành trong lĩnh vực bệnh lý Tiêu hóa, Nguyên Giám đốc Bệnh viện Đại học Y Hà Nội'
+                        }
+                        level={3}
                         img={Images.bstest}
                         id={'2c10d6b1-ad21-42f4-8c3b-45c6252bd9e1'}
                         hid={2}
+                        width={300}
                     />
                     <CardComponent
                         type={1}
-                        name={'Trần Hữu Đại'}
-                        descript={'123'}
-                        level={1}
+                        name={'Nguyễn Hữu Thọ'}
+                        descript={
+                            'Chuyên gia trên 35 năm kinh nghiệm trong lĩnh vực bệnh lý Tiêu hóa, Chuyên gia đầu ngành trong lĩnh vực bệnh lý Tiêu hóa, Nguyên Giám đốc Bệnh viện Đại học Y Hà Nội'
+                        }
+                        level={2}
                         img={Images.bstest}
                         id={'2c10d6b1-ad21-42f4-8c3b-45c6252bd9e1'}
                         hid={2}
+                        width={300}
                     />
 
                     {/* {bookResult.map((e, i) => {

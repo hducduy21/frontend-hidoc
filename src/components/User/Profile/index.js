@@ -101,6 +101,7 @@ function Profile() {
                 .then((data) => {
                     if (data.status === 200) {
                         if (data.data && data.data.data) {
+                            console.log(data.data.data);
                             setHistory(data.data.data);
                         }
                     }

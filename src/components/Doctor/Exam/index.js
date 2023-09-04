@@ -16,28 +16,15 @@ function Exam() {
                     <Space wrap>
                         <Form.Item label="Chọn ca khám">
                             <Select
-                                defaultValue="lucy"
+                                defaultValue="none"
                                 style={{
                                     width: 120,
                                 }}
                                 onChange={handleChange}
                                 options={[
                                     {
-                                        value: 'jack',
-                                        label: 'Jack',
-                                    },
-                                    {
-                                        value: 'lucy',
-                                        label: 'Lucy',
-                                    },
-                                    {
-                                        value: 'Yiminghe',
-                                        label: 'yiminghe',
-                                    },
-                                    {
-                                        value: 'disabled',
-                                        label: 'Disabled',
-                                        disabled: true,
+                                        value: 'none',
+                                        label: '',
                                     },
                                 ]}
                             />
@@ -46,32 +33,22 @@ function Exam() {
                     <Space wrap>
                         <Form.Item label="Chọn bệnh nhân">
                             <Select
-                                defaultValue="lucy"
+                                defaultValue="none"
                                 style={{
                                     width: 120,
                                 }}
                                 onChange={handleChange}
                                 options={[
                                     {
-                                        value: 'jack',
-                                        label: 'Jack',
-                                    },
-                                    {
-                                        value: 'lucy',
-                                        label: 'Lucy',
-                                    },
-                                    {
-                                        value: 'Yiminghe',
-                                        label: 'yiminghe',
-                                    },
-                                    {
-                                        value: 'disabled',
-                                        label: 'Disabled',
-                                        disabled: true,
+                                        value: 'none',
+                                        label: '',
                                     },
                                 ]}
                             />
                         </Form.Item>
+                    </Space>
+                    <Space>
+                        <i style={{ color: 'red' }}>Vui lòng chọn bệnh nhân đúng ca khám để tiến hành khám</i>
                     </Space>
                 </Form>
             </Col>
@@ -96,11 +73,11 @@ function Exam() {
                     </tr>
                     <tr>
                         <td>Số điện thoại:</td>
-                        <td>08167382363</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>Địa chỉ:</td>
-                        <td>ahfoehjajdkfhjejh ahifhjiajhkeehjkh akfhjaiheuijenfk</td>
+                        <td></td>
                     </tr>
                 </Table>
             </Col>
@@ -121,7 +98,7 @@ function Exam() {
                         <TextArea rows={2} />
                     </Form.Item>
                 </Form>
-                <Button type="primary" style={{ float: 'right' }}>
+                <Button type="primary" style={{ float: 'right' }} disabled>
                     Kết thúc
                 </Button>
             </Col>
